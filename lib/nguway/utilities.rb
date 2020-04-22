@@ -24,12 +24,20 @@ module Nguway::Utilities
       neg = true
     end
 
+    days = secs / 1.day
+    secs -= days.day.to_i
     hours = secs / 1.hour
     secs -= hours.hour.to_i
     minutes = secs / 1.minute
     secs -= minutes.minute.to_i
 
-    [if hours >= 1
+    [if days >= 5
+       "#{days}d"
+     elsif days >= 2
+       "#{days}d #{hours}h"
+     elsif days >= 1
+       "#{days}d #{hours}h #{minutes}m"
+     elsif hours >= 1
        "#{hours}h #{minutes}m"
      elsif minutes >= 5
        "#{minutes}m"
