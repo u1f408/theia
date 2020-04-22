@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Rogare::Commands::EightBall
-  extend Rogare::Command
+class Nguway::Commands::EightBall
+  extend Nguway::Command
 
   command '8ball'
   usage '`!% <derp>`'

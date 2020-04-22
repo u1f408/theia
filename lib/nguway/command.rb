@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Rogare::Command
+module Nguway::Command
   @@mine = {}
 
   def self.extended(base)
@@ -47,7 +47,7 @@ module Rogare::Command
       h[:usage][0] ||= 'No help message :('
 
       m.reply(h[:usage].map do |line|
-        line.gsub('!%', "#{Rogare.prefix}#{h[:command]}")
+        line.gsub('!%', "#{Nguway.prefix}#{h[:command]}")
       end.join("\n"))
     end
   end
@@ -63,11 +63,11 @@ module Rogare::Command
     opts[:method] ||= :execute
 
     logs '       matching: ' + pattern.inspect
-    my[:patterns] << [/^\s*#{Rogare.prefix}#{pattern}\s*$/m, opts]
+    my[:patterns] << [/^\s*#{Nguway.prefix}#{pattern}\s*$/m, opts]
     my[:common_pattern] = Regexp.union(my[:patterns].map { |pat| pat[0] })
 
-    Rogare.discord.remove_handler my[:discord_handler] if my[:discord_handler]
-    my[:discord_handler] = Rogare.discord.message(contains: my[:common_pattern]) do |event|
+    Nguway.discord.remove_handler my[:discord_handler] if my[:discord_handler]
+    my[:discord_handler] = Nguway.discord.message(contains: my[:common_pattern]) do |event|
       message = event.message.content.strip
       server = event.channel.server
       chan = [server ? server.name : 'PM', event.channel.name].join '/'

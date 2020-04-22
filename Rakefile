@@ -2,12 +2,6 @@
 
 require 'dotenv/tasks'
 
-unless ENV['RACK_ENV'] == 'production'
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new(:lint)
-  task fix: 'lint:auto_correct'
-end
-
 task :console do
   require 'pry'
   require './cli'

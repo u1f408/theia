@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Rogare::Commands::Pronouns
-  extend Rogare::Command
+class Nguway::Commands::Pronouns
+  extend Nguway::Command
 
   command 'pronouns'
   aliases 'gender'
@@ -10,6 +10,6 @@ class Rogare::Commands::Pronouns
 
   match_empty :execute
   def execute(m)
-    m.reply 'My pronouns are she/her it/its, thanks for asking :)'
+    m.reply 'My pronouns are fae/fer, thanks for asking :)'
   end
 end

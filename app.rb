@@ -14,35 +14,16 @@ end
 
 logs '=====> Preparing threads'
 
-Rogare.spinoff(:goals) do
-  logs '=====> Spinning up goal repeater'
-  loop do
-    n = Goal.need_repeating.map(&:repeat_if_needed!).length
-    logs "=====> The goal repeater repeated #{n} goals! Nom nom nom" if n.positive?
-    sleep 10.minutes
-  end
-end
-
-if ENV['RACK_ENV'] == 'production' || ENV['DEV_LOAD_WARS']
-  Rogare.spinoff(:wars) do
-    sleep 3
-    logs '=====> Loading wordwars from Postgres'
-    wars = War.start_timers_for_existing
-    logs "=====> Loaded #{wars.count} wordwars, now waiting on timers"
-    wars.each(&:join)
-  end
-end
-
 if ENV['RACK_ENV'] == 'production'
-  Rogare.spinoff(:debug) do
+  Nguway.spinoff(:debug) do
     logs '=====> Preparing live debug port'
     binding.remote_pry
   end
 end
 
-Rogare.spinoff(:discord) do
+Nguway.spinoff(:discord) do
   logs '=====> Starting Discord'
-  Rogare.discord.run
+  Nguway.discord.run
 end
 
-Rogare.spinall!
+Nguway.spinall!

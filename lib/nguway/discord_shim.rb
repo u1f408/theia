@@ -28,7 +28,7 @@ class DiscordMessageShim
   end
 
   def param
-    message.sub(/^\s*#{Rogare.prefix}#{@plug[:command]}/i, '')
+    message.sub(/^\s*#{Nguway.prefix}#{@plug[:command]}/i, '')
   end
 
   def reply(message)
@@ -40,7 +40,7 @@ class DiscordMessageShim
   end
 
   def user
-    Rogare.user_cache.getset(@event.message.author.id) do
+    Nguway.user_cache.getset(@event.message.author.id) do
       User.create_from_discord(@event.message.author)
     end
   end

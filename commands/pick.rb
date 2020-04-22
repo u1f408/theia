@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Rogare::Commands::Pick
-  extend Rogare::Command
+class Nguway::Commands::Pick
+  extend Nguway::Command
 
   command 'pick'
   usage '`!% <start> <end>` - Picks a number/letter between start and end'

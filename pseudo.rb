@@ -16,7 +16,7 @@ require './pseudo/shim'
 require './pseudo/terminal'
 require './pseudo/core'
 
-Rogare.spinoff(:pseudo) do
+Nguway.spinoff(:pseudo) do
   sleep 2
   logs '=====> We’re in'
   Pseudo::Terminal.new.player!

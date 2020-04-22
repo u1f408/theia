@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Rogare
+module Nguway
   class << self
     def discord
       return @bot if @bot
@@ -8,7 +8,7 @@ module Rogare
       @bot = Pseudo::Bot.new
 
       @bot.ready do
-        @bot.update_status('online', Rogare.game, nil)
+        @bot.update_status('online', Nguway.game, nil)
       end
 
       @bot.message do |event|

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Rogare::Commands::Help
-  extend Rogare::Command
+class Nguway::Commands::Help
+  extend Nguway::Command
   extend Memoist
 
   command 'help', hidden: true
@@ -11,7 +11,7 @@ class Rogare::Commands::Help
   match_empty :execute
 
   def bot_prefix
-    Rogare
+    Nguway
       .prefix
       .to_s
       .gsub(/(
@@ -23,9 +23,9 @@ class Rogare::Commands::Help
   end
 
   def command_list
-    Rogare::Commands.constants.map do |cmd|
-      command = Rogare::Commands.const_get cmd
-      one = Rogare::Command.allmine[command.inspect.to_sym]
+    Nguway::Commands.constants.map do |cmd|
+      command = Nguway::Commands.const_get cmd
+      one = Nguway::Command.allmine[command.inspect.to_sym]
       next if one.nil?
       next if one[:hidden]
 
@@ -44,7 +44,7 @@ class Rogare::Commands::Help
   end
 
   def execute(m)
-    m.reply "More: #{readable_commands.join(', ')}."
+    m.reply "Commands: #{readable_commands.join(', ')}."
   end
 
   memoize :bot_prefix, :command_list, :readable_commands

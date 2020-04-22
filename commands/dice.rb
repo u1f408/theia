@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Rogare::Commands::Dice
-  extend Rogare::Command
+class Nguway::Commands::Dice
+  extend Nguway::Command
 
   command 'dice'
   aliases 'roll'

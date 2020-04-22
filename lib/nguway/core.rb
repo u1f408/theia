@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Rogare
+module Nguway
   class << self
     extend Memoist
 
@@ -21,7 +21,7 @@ module Rogare
 
     def prefix
       if ENV['RACK_ENV'] == 'production'
-        '!'
+        '='
       else
         '§'
       end
@@ -32,55 +32,7 @@ module Rogare
     end
 
     def game
-      [
-        'with fire',
-        'at life — and winning',
-        'Plotting in the Dark',
-        'Killing Characters',
-        'Taking names and kicking ass',
-        'Breaking quills',
-        'Pulling out the full stops',
-        'with cute animals',
-        'Destiny… of your MC',
-        'the role of Fate',
-        'Shadow puppets',
-        'with your wordcount',
-        'World of Wordcraft',
-        'Plot Hole Hunters',
-        'Age of Myth',
-        'League of Writers',
-        'the fool',
-        'and drinking',
-        'Really old scrolls VI',
-        'you',
-        'Grand Write Into',
-        'Legend of Making Count',
-        'Writer’s DOOM',
-        'Two Fortnites (and this will be over)',
-        'Red Pen Redemption',
-        'Finally Fantasy',
-        'CoD: Blank Page',
-        'Dots 2',
-        'Half-Novel²',
-        'Poketome Go',
-        'Wordsmith’s Creed: Odyssey',
-        'Plotfinder: Kingmaker',
-        'and wandering and lusting',
-        'Super Script Bros',
-        'Tom Clancy’s The Pagebreak 2',
-        'Kingdom Inks III',
-        'Wolfenstein: YA debut',
-        'Ori and the Will of the Writs',
-        'Scribe of Solitude',
-        'Dashen',
-        'Presscalibur',
-        'Civilization VI: Gathering Dust',
-        'mind games',
-        'tricks',
-        'Eat The Bug',
-        'woolgathering',
-        'no, no, I’m writing, honest'
-      ].sample
+      Game.random_text
     end
 
     # Extremely short-lived global cache for initial user lookups.
@@ -104,7 +56,7 @@ module Rogare
 
       if ENV['RACK_ENV'] == 'production' && ENV['LEAVE_STATUS'].nil?
         bot.ready do
-          bot.update_status('online', Rogare.game, nil)
+          bot.update_status('online', Nguway.game, nil)
         end
       end
 
@@ -112,16 +64,6 @@ module Rogare
         user_cache.getset(event.author.id) do
           User.create_from_discord(event.author)
         end.seen!
-      end
-
-      if ENV['RACK_ENV'] == 'production'
-        bot.member_join do |event|
-          user_cache.getset(event.user.id) do
-            User.create_from_discord(event.user)
-          end.seen!
-
-          welcome event.server, event.user
-        end
       end
 
       bot
@@ -200,23 +142,6 @@ module Rogare
           chans
         end
       end
-    end
-
-    def welcome(server, user)
-      logs "Sending welcome to #{user.name}"
-
-      dm = user.pm
-      dm.send [
-        "Hello from #{server.name}! My name is **sassbot**, and I’m the resident bot.",
-        'You can talk to me anywhere, but **#boating** is my special space. ' \
-          "Get help with `#{Rogare.prefix}help`. Introduce yourself in **#beginning**! " \
-          'Present your pronouns and preferred names. ' \
-          'Tell us a lil about yourself, and be welcome in this space.',
-        "You can get pronoun and region roles/badges by asking me with `#{Rogare.prefix}badges`",
-        "Before you can get started, though, please say `#{Rogare.prefix}hello` here. " \
-          'This gives you “voice” i.e. permission to talk on the server, and constitutes ' \
-          'agreement to the rules of the space, namely: don’t be a jerk.'
-      ].join("\n\n")
     end
 
     memoize :discord, :config, :nixnotif, :sql, :tz

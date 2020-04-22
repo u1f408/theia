@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Rogare::Commands::Choose
-  extend Rogare::Command
+class Nguway::Commands::Choose
+  extend Nguway::Command
 
   command 'choose'
   usage '`!% <first thing> or <second thing> [or <third thing> and so on]`'
@@ -15,7 +15,11 @@ class Rogare::Commands::Choose
 
     if !xor && rand < 0.01
       return m.reply [
-        'yes', 'both', 'all of the above', 'not super sure, actually', 'Gryffindor!'
+        'yes',
+        'both',
+        'all of the above',
+        'not super sure, actually',
+        'if you yell your question into the void you might get a better answer',
       ].sample
     end
 

@@ -1,13 +1,10 @@
-# Rogare
+# Nguway
 
-Discord bot.
+Discord bot for The Iris System server.
 
-- Runs on Heroku with one dyno.
-- Queries [Cogitare](https://cogitare.nz) for the `!plot` command.
-- Uses a Postgres database for all data.
-- Has a `!name` generator/picker based on real data.
-- Also provides `!wordcount`, `!choose`, `!wordwar`, many others.
-- Does novel and goal management.
+Forked from [Rogare](https://github.com/storily/rogare), which is the Ruby
+portion of Sassbot, the NZ NaNoWriMo Discord bot. This README is mostly
+the same as from Rogare.
 
 ## Configuration
 
@@ -15,15 +12,9 @@ Discord bot.
 
 - `RACK_ENV=` Currently only used for Bundler loading. Defaults to `production`.
 
-- `DICERE_URL=` Point to the Dicere API url.
-
-- `NOMINARE_URL=` Point to the Nominare API url.
-
 - `DATABASE_URL=` Points to a Postgres server (defaults to a local server).
 
 - `DB_SCHEMA=` The database schema to use (for namespacing inside a single Postgres instance, defaults to `public`).
-
-- `WOLFRAM_KEY=` With a valid Wolfram|Alpha key for the `!calc` command.
 
 - `COMMANDS_WHITELIST=` (Optional, useful in dev.) Only loads the comma-separated commands.
 
@@ -44,13 +35,8 @@ The bot needs to be restarted at every change.
 
 The bot was previously a Cinch IRC bot, so has peculiarities from that time.
 
-Use `rake fix` to run the lint check and fixer (good to do before pushing).
+After creating a migration, run it with `rake db:migrate`, then immediately
+run `rake db:redo`, to test its rollback.
 
-Migrations timestamped in 2018 are the initial schema (the migration system was
-established in 2019). When creating a new migration, use today’s date.
-
-After creating a migration, run it with `rake db:migrate`, then immediately run
-`rake db:redo`, to test its rollback.
-
-Use `rake console` to get a shell with most of the same context as the app. Note
-that commands are not loaded automatically.
+Use `rake console` to get a shell with most of the same context as the app.
+Note that commands are not loaded automatically.
