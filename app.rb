@@ -26,14 +26,16 @@ Nguway.spinoff(:discord) do
   Nguway.discord.run
 end
 
-Rogare.spinoff(:game_cycle) do
-  logs '=====> Spinning up game cycler'
-  loop do
-    sleep 10.minutes
+if ENV['RACK_ENV'] == 'production' && ENV['LEAVE_STATUS'].nil?
+  Nguway.spinoff(:game_cycle) do
+    logs '=====> Spinning up game cycler'
+    loop do
+      sleep 10.minutes
 
-    game = Nguway.game
-    logs "=====> Cycling game to: #{game}"
-    Nguway.discord.update_status('online', game, nil)
+      game = Nguway.game
+      logs "=====> Cycling game to: #{game}"
+      Nguway.discord.update_status('online', game, nil)
+    end
   end
 end
 
