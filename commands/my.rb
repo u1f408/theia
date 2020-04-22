@@ -36,6 +36,8 @@ class Nguway::Commands::My
         "Sorry, `#{tz}` isn't a valid timezone.",
         "Look at the \"TZ database name\" column of <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones> for examples."
       ].join("\n")
+
+      return
     end
 
     m.user.tz = tz
