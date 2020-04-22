@@ -12,7 +12,7 @@ class Nguway::Commands::My
   handle_help
 
   match_command /time/, method: :time
-  match_command /set tz\s+(.+)/, method: :set_timezone
+  match_command /set tz (.*)/, method: :set_timezone
   match_empty :show
 
   def show(m)
@@ -25,19 +25,21 @@ class Nguway::Commands::My
 
   def time(m)
     usertime = TimeZone.new(m.user.tz).now.strftime('%Y-%m-%d %H:%M %z')
-    m.reply "Time for **#{m.user.nick}**: `#{usertime}`"
+    m.reply "Time for **#{m.user.nick}**: `#{usertime}` (`#{m.user.tz}`)"
   end
 
   def set_timezone(m, tz)
     tz.strip!
 
     unless TimeZone.new(tz)
-      logs "Invalid timezone: #{e}"
-      return m.reply 'That’s not a valid timezone.'
+      m.reply [
+        "Sorry, `#{tz}` isn't a valid timezone.",
+        "Look at the \"TZ database name\" column of <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones> for examples."
+      ].join("\n")
     end
 
     m.user.tz = tz
     m.user.save
-    m.reply "Your timezone has been set to #{tz}."
+    m.reply "Your timezone has been set to `#{tz}`."
   end
 end
