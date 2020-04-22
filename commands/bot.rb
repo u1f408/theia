@@ -49,6 +49,7 @@ class Nguway::Commands::Bot
       help_message
       botinfo uptime
       my_id
+      game_list
     ].include? method
 
     is_admin = m.user.discord.roles.find { |r| (r.permissions.bits & 3) == 3 }
