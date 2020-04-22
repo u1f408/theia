@@ -6,19 +6,26 @@ class Nguway::Commands::My
   command 'my'
   usage [
     '`!%` - Show yourself!',
-    '`!% tz <timezone e.g. Pacific/Auckland>` - Set your timezone (for counts, goals, etc).'
+    '`!% time` - Show the current time in your timezone',
+    '`!% set tz <timezone e.g. Pacific/Auckland>` - Set your timezone'
   ]
   handle_help
 
-  match_command /tz\s+(.+)/, method: :set_timezone
+  match_command /time/, method: :time
+  match_command /set tz\s+(.+)/, method: :set_timezone
   match_empty :show
 
   def show(m)
     m.reply [
-      "Hello, #{m.user.nick || 'unknown'}!",
-      "**First seen**: `#{m.user.first_seen.strftime('%Y-%m-%d')}`",
-      "**Timezone**: `#{m.user.tz}`",
+      "Hello, **#{m.user.nick}**",
+      "First seen: `#{m.user.first_seen.strftime('%Y-%m-%d')}`",
+      "Timezone: `#{m.user.tz}`",
     ].compact.join("\n")
+  end
+
+  def time(m)
+    usertime = TimeZone.new(m.user.tz).now.strftime('%Y-%m-%d %H:%M %z')
+    m.reply "Time for **#{m.user.nick}**: `#{usertime}`"
   end
 
   def set_timezone(m, tz)
