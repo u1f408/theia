@@ -117,7 +117,7 @@ class Nguway::Commands::Bot
 
     tz.strip!
     unless TimeZone.new(tz)
-      return m.reply "Sorry, `#{tz}` isn't a valid timezone.",
+      return m.reply "Sorry, `#{tz}` isn't a valid timezone."
     end
 
     user.tz = tz
