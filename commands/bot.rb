@@ -18,6 +18,7 @@ class Nguway::Commands::Bot
     '`!% take a nap` - Voluntarily exit',
     '`!% say <channel> <text>` - Say something in a given channel',
 
+    '`!% user <user> tz info` - Inspects the given user',
     '`!% user <user> tz <tz>` - Sets the timezone for the given user',
 
     '`!% game cycle` - Cycle the bot’s playing now status',
