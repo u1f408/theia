@@ -35,6 +35,7 @@ class Nguway::Commands::Bot
   match_command /take a nap/, method: :take_a_nap
   match_command /say (\S+)\s+(.*)/, method: :say
 
+  match_command /user (.+)\s+info/, method: :user_info
   match_command /user (.+)\s+tz (.*)/, method: :user_tz
 
   match_command /game cycle/, method: :game_cycle
@@ -107,6 +108,15 @@ class Nguway::Commands::Bot
     end
 
     channel.send_msg message
+  end
+
+  def user_info(m, mid)
+    mid.strip!
+    user = Nguway.from_discord_mid(mid)
+    user ||= User.where(nick: mid).first
+    return m.reply "No such user: `#{mid}`" unless user
+
+    m.debugly user
   end
 
   def user_tz(m, mid, tz)
