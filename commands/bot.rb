@@ -18,6 +18,8 @@ class Nguway::Commands::Bot
     '`!% take a nap` - Voluntarily exit',
     '`!% say <channel> <text>` - Say something in a given channel',
 
+    '`!% user <user> tz <tz>` - Sets the timezone for the given user',
+
     '`!% game cycle` - Cycle the bot’s playing now status',
     '`!% game list` - List all the stored now playing statuses',
     '`!% game add <text>` - Add a new now playing status to the rotation',
@@ -32,6 +34,8 @@ class Nguway::Commands::Bot
 
   match_command /take a nap/, method: :take_a_nap
   match_command /say (\S+)\s+(.*)/, method: :say
+
+  match_command /user (.+)\s+tz (.*)/, method: :user_tz
 
   match_command /game cycle/, method: :game_cycle
   match_command /game list/, method: :game_list
@@ -103,6 +107,22 @@ class Nguway::Commands::Bot
     end
 
     channel.send_msg message
+  end
+
+  def user_tz(m, mid, tz)
+    mid.strip!
+    user = Nguway.from_discord_mid(mid)
+    user ||= User.where(nick: mid).first
+    return m.reply "No such user: `#{mid}`" unless user
+
+    tz.strip!
+    unless TimeZone.new(tz)
+      return m.reply "Sorry, `#{tz}` isn't a valid timezone.",
+    end
+
+    user.tz = tz
+    user.save
+    m.reply "Timezone for **#{user.nixnotif}** has been set to `#{tz}`."
   end
 
   def game_cycle(_m)
