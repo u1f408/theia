@@ -9,6 +9,7 @@ Bundler.require :default, ENV['RACK_ENV'].to_sym
 
 logs '=====> Loading framework'
 require './lib/nguway'
+require './lib/catgirls'
 
 logs '=====> Loading sequel'
 DB = Nguway.sql

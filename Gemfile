@@ -13,6 +13,7 @@ gem 'hashie', '~> 3.3'
 gem 'lru_redux', '~> 1.1'
 gem 'memoist', '~> 0.15.0'
 gem 'nokogiri', '~> 1.10'
+gem 'typhoeus', '~> 1.3'
 gem 'pg', '~> 1.1'
 gem 'pry', require: false
 gem 'pry-remote', '~> 0.1.8'

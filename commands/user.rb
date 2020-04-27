@@ -9,12 +9,14 @@ class Nguway::Commands::User
   usage [
     '`!% <user> last` - Show when the given user was last seen',
     '`!% <user> time` - Show the time for the given user',
+    '`!% <user> xiv` - Show the user\'s Final Fantasy XIV character',
     '`<user>` can be an @mention, a Discord user ID, or a nick.',
   ]
   handle_help
 
   match_command /(.+)\s+last/, method: :last
   match_command /(.+)\s+time/, method: :time
+  match_command /(.+)\s+(?:xiv|catgirls)/, method: :xiv
   match_empty :help_message
 
   def last(m, mid)
@@ -48,5 +50,19 @@ class Nguway::Commands::User
 
     usertime = TimeZone.new(user.tz).now.strftime('%Y-%m-%d %H:%M %z')
     m.reply "Time for **#{user.nixnotif}**: `#{usertime}` (`#{user.tz}`)"
+  end
+
+  def xiv(m, mid)
+    mid.strip!
+    user = Nguway.from_discord_mid(mid)
+    user ||= User.where(nick: mid).first
+    return m.reply "No such user: `#{mid}`" unless user
+
+    unless user.xiv_character
+      return m.reply "That user doesn't have a Final Fantasy XIV character set."
+    end
+
+    character = Catgirls.character(user.xiv_character)
+    character.embed(m)
   end
 end

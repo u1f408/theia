@@ -7,12 +7,15 @@ class Nguway::Commands::My
   usage [
     '`!%` - Show yourself!',
     '`!% time` - Show the current time in your timezone',
-    '`!% set tz <timezone e.g. Pacific/Auckland>` - Set your timezone'
+    '`!% set tz <timezone e.g. Pacific/Auckland>` - Set your timezone',
+    '`!% set xiv <server> <character>` - Set your Final Fantasy XIV character'
   ]
   handle_help
 
   match_command /time/, method: :time
+  match_command /(?:xiv|catgirls)/, method: :xiv
   match_command /set tz (.*)/, method: :set_timezone
+  match_command /set (?:xiv|catgirls) (\w+) (.*)/, method: :set_xiv
   match_empty :show
 
   def show(m)
@@ -26,6 +29,15 @@ class Nguway::Commands::My
   def time(m)
     usertime = TimeZone.new(m.user.tz).now.strftime('%Y-%m-%d %H:%M %z')
     m.reply "Time for **#{m.user.nick}**: `#{usertime}` (`#{m.user.tz}`)"
+  end
+
+  def xiv(m)
+    unless m.user.xiv_character
+      return m.reply "You don't have a Final Fantasy XIV character set! Use #{Nguway.prefix}my set xiv <server> <character>"
+    end
+
+    character = Catgirls.character(m.user.xiv_character)
+    character.embed(m)
   end
 
   def set_timezone(m, tz)
@@ -43,5 +55,30 @@ class Nguway::Commands::My
     m.user.tz = tz
     m.user.save
     m.reply "Your timezone has been set to `#{tz}`."
+  end
+
+  def set_xiv(m, server, character)
+    character.strip!
+    server = server.strip.split('')
+    server.first.upcase!
+    server = server.join('')
+
+    # Check server exists
+    unless Catgirls.servers.include?(server)
+      return m.reply "Sorry, #{server} isn't a valid Final Fantasy XIV server."
+    end
+
+    # Check character exists
+    api_character = Catgirls.character_search(server, character)
+    unless character
+      return m.reply "Sorry, I couldn't find that character!"
+    end
+
+    m.user.xiv_character = api_character
+    m.user.save
+    m.reply "Final Fantasy XIV character data saved."
+
+    character = Catgirls.character(api_character)
+    character.embed(m)
   end
 end
