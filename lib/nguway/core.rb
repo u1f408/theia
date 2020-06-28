@@ -60,7 +60,7 @@ module Nguway
         end
       end
 
-      bot.message do |event
+      bot.message do |event|
         # Ignore the message if it's from a webhook
         next if event.author.webhook?
 
