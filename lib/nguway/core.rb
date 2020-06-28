@@ -61,9 +61,6 @@ module Nguway
       end
 
       bot.message do |event|
-        # Ignore the message if it's from a webhook
-        next if event.author.webhook?
-
         user_cache.getset(event.author.id) do
           User.create_from_discord(event.author)
         end.seen!

@@ -68,6 +68,9 @@ module Nguway::Command
 
     Nguway.discord.remove_handler my[:discord_handler] if my[:discord_handler]
     my[:discord_handler] = Nguway.discord.message(contains: my[:common_pattern]) do |event|
+      # Ignore the message if it's from a webhook or a bot
+      next if event.author.webhook? || event.author.bot_account?
+
       message = event.message.content.strip
       server = event.channel.server
       chan = [server ? server.name : 'PM', event.channel.name].join '/'
