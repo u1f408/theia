@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Nguway::Command
+module Theia::Command
   @@mine = {}
 
   def self.extended(base)
@@ -47,7 +47,7 @@ module Nguway::Command
       h[:usage][0] ||= 'No help message :('
 
       m.reply(h[:usage].map do |line|
-        line.gsub('!%', "#{Nguway.prefix}#{h[:command]}")
+        line.gsub('!%', "#{Theia.prefix}#{h[:command]}")
       end.join("\n"))
     end
   end
@@ -63,11 +63,11 @@ module Nguway::Command
     opts[:method] ||= :execute
 
     logs '       matching: ' + pattern.inspect
-    my[:patterns] << [/^\s*#{Nguway.prefix}#{pattern}\s*$/m, opts]
+    my[:patterns] << [/^\s*#{Theia.prefix}#{pattern}\s*$/m, opts]
     my[:common_pattern] = Regexp.union(my[:patterns].map { |pat| pat[0] })
 
-    Nguway.discord.remove_handler my[:discord_handler] if my[:discord_handler]
-    my[:discord_handler] = Nguway.discord.message(contains: my[:common_pattern]) do |event|
+    Theia.discord.remove_handler my[:discord_handler] if my[:discord_handler]
+    my[:discord_handler] = Theia.discord.message(contains: my[:common_pattern]) do |event|
       # Ignore the message if it's from a webhook or a bot
       next if event.author.webhook? || event.author.bot_account?
 

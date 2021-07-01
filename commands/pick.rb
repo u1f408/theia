@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::Pick
-  extend Nguway::Command
+class Theia::Commands::Pick
+  extend Theia::Command
 
   command 'pick'
   usage '`!% <start> <end>` - Picks a number/letter between start and end'

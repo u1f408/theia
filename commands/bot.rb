@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::Bot
-  extend Nguway::Command
+class Theia::Commands::Bot
+  extend Theia::Command
 
   command 'bot'
   usage [
@@ -67,8 +67,8 @@ class Nguway::Commands::Bot
 
   def botinfo(m)
     m.reply [
-      "My name is Nguway, and I am the bot for The Iris System's Discord server.",
-      "My source code can be found at <https://gitlab.com/alxce/nguway>.",
+      "My name is Theia.",
+      "My source code can be found at <https://github.com/u1f408/theia>.",
       "I am a fork of Rogare, part of Sassbot - the bot for the New Zealand NaNoWriMo Discord server.",
       "Her source code can be found at <https://github.com/storily/rogare>.",
     ].join(" ")
@@ -76,8 +76,8 @@ class Nguway::Commands::Bot
 
   def uptime(m)
     version = ENV['HEROKU_SLUG_DESCRIPTION'] || `git describe --always --tags --abbrev --dirty` || 'around'
-    m.reply "My name is Nguway, #{Socket.gethostname} is my home, running #{version}"
-    m.reply "I made my debut at #{Nguway.boot}, #{(Time.now - Nguway.boot).round} seconds ago"
+    m.reply "My name is Theia, #{Socket.gethostname} is my home, running #{version}"
+    m.reply "I made my debut at #{Theia.boot}, #{(Time.now - Theia.boot).round} seconds ago"
   end
 
   def take_a_nap(m)
@@ -97,7 +97,7 @@ class Nguway::Commands::Bot
   end
 
   def say(m, channel, message)
-    channel = Nguway.find_channel(channel.strip)
+    channel = Theia.find_channel(channel.strip)
     if channel.nil?
       m.reply 'No such channel'
       return
@@ -113,7 +113,7 @@ class Nguway::Commands::Bot
 
   def user_info(m, mid)
     mid.strip!
-    user = Nguway.from_discord_mid(mid)
+    user = Theia.from_discord_mid(mid)
     user ||= User.where(nick: mid).first
     return m.reply "No such user: `#{mid}`" unless user
 
@@ -122,7 +122,7 @@ class Nguway::Commands::Bot
 
   def user_tz(m, mid, tz)
     mid.strip!
-    user = Nguway.from_discord_mid(mid)
+    user = Theia.from_discord_mid(mid)
     user ||= User.where(nick: mid).first
     return m.reply "No such user: `#{mid}`" unless user
 
@@ -137,7 +137,7 @@ class Nguway::Commands::Bot
   end
 
   def game_cycle(_m)
-    Nguway.discord.update_status('online', Nguway.game, nil)
+    Theia.discord.update_status('online', Theia.game, nil)
   end
 
   def game_list(m)

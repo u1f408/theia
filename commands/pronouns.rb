@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::Pronouns
-  extend Nguway::Command
+class Theia::Commands::Pronouns
+  extend Theia::Command
 
   command 'pronouns'
   aliases 'gender'
@@ -10,6 +10,6 @@ class Nguway::Commands::Pronouns
 
   match_empty :execute
   def execute(m)
-    m.reply 'My pronouns are fae/fer, thanks for asking :)'
+    m.reply 'My pronouns are it/its, thanks for asking :)'
   end
 end

@@ -50,7 +50,7 @@ class User < Sequel::Model
   end
 
   def nixnotif
-    Nguway.nixnotif nick
+    Theia.nixnotif nick
   end
 
   def timezone

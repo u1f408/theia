@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::EightBall
-  extend Nguway::Command
+class Theia::Commands::EightBall
+  extend Theia::Command
 
   command '8ball'
   usage '`!% <derp>`'

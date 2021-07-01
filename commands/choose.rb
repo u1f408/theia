@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::Choose
-  extend Nguway::Command
+class Theia::Commands::Choose
+  extend Theia::Command
 
   command 'choose'
   usage '`!% <first thing> or <second thing> [or <third thing> and so on]`'

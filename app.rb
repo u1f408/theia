@@ -15,28 +15,28 @@ end
 logs '=====> Preparing threads'
 
 if ENV['RACK_ENV'] == 'production'
-  Nguway.spinoff(:debug) do
+  Theia.spinoff(:debug) do
     logs '=====> Preparing live debug port'
     binding.remote_pry
   end
 end
 
-Nguway.spinoff(:discord) do
+Theia.spinoff(:discord) do
   logs '=====> Starting Discord'
-  Nguway.discord.run
+  Theia.discord.run
 end
 
 if ENV['RACK_ENV'] == 'production' && ENV['LEAVE_STATUS'].nil?
-  Nguway.spinoff(:game_cycle) do
+  Theia.spinoff(:game_cycle) do
     logs '=====> Spinning up game cycler'
     loop do
       sleep 10.minutes
 
-      game = Nguway.game
+      game = Theia.game
       logs "=====> Cycling game to: #{game}"
-      Nguway.discord.update_status('online', game, nil)
+      Theia.discord.update_status('online', game, nil)
     end
   end
 end
 
-Nguway.spinall!
+Theia.spinall!

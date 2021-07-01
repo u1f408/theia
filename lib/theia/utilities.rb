@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Nguway::Utilities
+module Theia::Utilities
   def first_of(month, tz)
     tz_string = tz.current_period.offset.abbreviation
     DateTime.parse("#{Time.new.year}-#{month}-01 00:00:00 #{tz_string}").to_time

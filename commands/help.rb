@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::Help
-  extend Nguway::Command
+class Theia::Commands::Help
+  extend Theia::Command
   extend Memoist
 
   command 'help', hidden: true
@@ -11,7 +11,7 @@ class Nguway::Commands::Help
   match_empty :execute
 
   def bot_prefix
-    Nguway
+    Theia
       .prefix
       .to_s
       .gsub(/(
@@ -23,9 +23,9 @@ class Nguway::Commands::Help
   end
 
   def command_list
-    Nguway::Commands.constants.map do |cmd|
-      command = Nguway::Commands.const_get cmd
-      one = Nguway::Command.allmine[command.inspect.to_sym]
+    Theia::Commands.constants.map do |cmd|
+      command = Theia::Commands.const_get cmd
+      one = Theia::Command.allmine[command.inspect.to_sym]
       next if one.nil?
       next if one[:hidden]
 

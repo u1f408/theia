@@ -8,11 +8,11 @@ require 'bundler'
 Bundler.require :default, ENV['RACK_ENV'].to_sym
 
 logs '=====> Loading framework'
-require './lib/nguway'
+require './lib/theia'
 require './lib/catgirls'
 
 logs '=====> Loading sequel'
-DB = Nguway.sql
+DB = Theia.sql
 Sequel::Model.plugin :eager_each
 Sequel::Model.plugin :pg_auto_constraint_validations
 Sequel::Model.plugin :prepared_statements

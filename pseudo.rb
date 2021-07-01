@@ -16,7 +16,7 @@ require './pseudo/shim'
 require './pseudo/terminal'
 require './pseudo/core'
 
-Nguway.spinoff(:pseudo) do
+Theia.spinoff(:pseudo) do
   sleep 2
   logs '=====> We’re in'
   Pseudo::Terminal.new.player!

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Nguway
+module Theia
   class << self
     extend Memoist
 
@@ -56,7 +56,7 @@ module Nguway
 
       if ENV['RACK_ENV'] == 'production' && ENV['LEAVE_STATUS'].nil?
         bot.ready do
-          bot.update_status('online', Nguway.game, nil)
+          bot.update_status('online', Theia.game, nil)
         end
       end
 

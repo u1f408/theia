@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::My
-  extend Nguway::Command
+class Theia::Commands::My
+  extend Theia::Command
 
   command 'my'
   usage [
     '`!%` - Show yourself!',
     '`!% time` - Show the current time in your timezone',
+    '`!% xiv` - Show your Final Fantasy XIV character',
+    '',
     '`!% set tz <timezone e.g. Pacific/Auckland>` - Set your timezone',
     '`!% set xiv <server> <character>` - Set your Final Fantasy XIV character'
   ]
@@ -33,7 +35,7 @@ class Nguway::Commands::My
 
   def xiv(m)
     unless m.user.xiv_character
-      return m.reply "You don't have a Final Fantasy XIV character set! Use #{Nguway.prefix}my set xiv <server> <character>"
+      return m.reply "You don't have a Final Fantasy XIV character set! Use #{Theia.prefix}my set xiv <server> <character>"
     end
 
     character = Catgirls.character(m.user.xiv_character)

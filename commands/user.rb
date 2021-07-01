@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::User
-  extend Nguway::Command
-  include Nguway::Utilities
+class Theia::Commands::User
+  extend Theia::Command
+  include Theia::Utilities
 
   command 'user'
   aliases 'u'
@@ -21,7 +21,7 @@ class Nguway::Commands::User
 
   def last(m, mid)
     mid.strip!
-    user = Nguway.from_discord_mid(mid)
+    user = Theia.from_discord_mid(mid)
     user ||= User.where(nick: mid).first
     return m.reply "No such user: `#{mid}`" unless user
 
@@ -44,7 +44,7 @@ class Nguway::Commands::User
 
   def time(m, mid)
     mid.strip!
-    user = Nguway.from_discord_mid(mid)
+    user = Theia.from_discord_mid(mid)
     user ||= User.where(nick: mid).first
     return m.reply "No such user: `#{mid}`" unless user
 
@@ -54,7 +54,7 @@ class Nguway::Commands::User
 
   def xiv(m, mid)
     mid.strip!
-    user = Nguway.from_discord_mid(mid)
+    user = Theia.from_discord_mid(mid)
     user ||= User.where(nick: mid).first
     return m.reply "No such user: `#{mid}`" unless user
 

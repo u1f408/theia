@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Nguway::Commands::Dice
-  extend Nguway::Command
+class Theia::Commands::Dice
+  extend Theia::Command
 
   command 'dice'
   aliases 'roll'

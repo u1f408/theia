@@ -28,7 +28,7 @@ class DiscordMessageShim
   end
 
   def param
-    message.sub(/^\s*#{Nguway.prefix}#{@plug[:command]}/i, '')
+    message.sub(/^\s*#{Theia.prefix}#{@plug[:command]}/i, '')
   end
 
   def reply(message)
@@ -40,7 +40,7 @@ class DiscordMessageShim
   end
 
   def user
-    Nguway.user_cache.getset(@event.message.author.id) do
+    Theia.user_cache.getset(@event.message.author.id) do
       User.create_from_discord(@event.message.author)
     end
   end

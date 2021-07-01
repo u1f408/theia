@@ -1,6 +1,6 @@
-# Nguway
+# Theia
 
-Discord bot for The Iris System server.
+Discord bot for The Iris System's server.
 
 Forked from [Rogare](https://github.com/storily/rogare), which is the Ruby
 portion of Sassbot, the NZ NaNoWriMo Discord bot. This README is mostly
