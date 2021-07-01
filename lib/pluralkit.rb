@@ -27,6 +27,7 @@ module PluralKitApi
     end
 
     status = data['awake'] ? 'awake' : 'sleeping'
+    avatar = data['system']['avatar_url'] || nil
     fronters = data['fronters'].map do |member|
       {
         name: member['display_name'] || member['name'],
@@ -48,9 +49,13 @@ module PluralKitApi
         em.add_field(name: 'Current fronters', value: fnames, inline: false)
 
         # Current first fronter avatar
-        if !(fronters.first[:avatar].nil?())
-          em.thumbnail = Discordrb::Webhooks::EmbedImage.new(url: fronters.first[:avatar])
+        if avatar.nil? && !(fronters.first[:avatar].nil?())
+          avatar = fronters.first[:avatar]
         end
+      end
+
+      if avatar
+        em.thumbnail = Discordrb::Webhooks::EmbedImage.new(url: avatar)
       end
     end
   end
