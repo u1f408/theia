@@ -21,7 +21,7 @@ module Theia
 
     def prefix
       if ENV['RACK_ENV'] == 'production'
-        '='
+        '!'
       else
         '§'
       end
