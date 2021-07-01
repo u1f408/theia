@@ -8,6 +8,7 @@ class Theia::Commands::My
     '`!%` - Show yourself!',
     '`!% time` - Show the current time in your timezone',
     '`!% xiv` - Show your Final Fantasy XIV character',
+    '`!% awake` - Show your current fronters in PluralKit',
     '',
     '`!% set tz <timezone e.g. Pacific/Auckland>` - Set your timezone',
     '`!% set xiv <server> <character>` - Set your Final Fantasy XIV character'
@@ -16,6 +17,7 @@ class Theia::Commands::My
 
   match_command /time/, method: :time
   match_command /(?:xiv|catgirls)/, method: :xiv
+  match_command /(?:pk|awake)/, method: :pk_awake
   match_command /set tz (.*)/, method: :set_timezone
   match_command /set (?:xiv|catgirls) (\w+) (.*)/, method: :set_xiv
   match_empty :show
@@ -40,6 +42,11 @@ class Theia::Commands::My
 
     character = Catgirls.character(m.user.xiv_character)
     character.embed(m)
+  end
+
+  def pk_awake(m)
+    system_id = PluralKitApi.system_id_from_discord_id(m.user.discord_id)
+    PluralKitApi.awake_embed(m, system_id)
   end
 
   def set_timezone(m, tz)

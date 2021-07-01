@@ -10,6 +10,7 @@ class Theia::Commands::User
     '`!% <user> last` - Show when the given user was last seen',
     '`!% <user> time` - Show the time for the given user',
     '`!% <user> xiv` - Show the user\'s Final Fantasy XIV character',
+    '`!% <user> awake` - Show whether the user is switched in with PluralKit',
     '`<user>` can be an @mention, a Discord user ID, or a nick.',
   ]
   handle_help
@@ -17,6 +18,7 @@ class Theia::Commands::User
   match_command /(.+)\s+last/, method: :last
   match_command /(.+)\s+time/, method: :time
   match_command /(.+)\s+(?:xiv|catgirls)/, method: :xiv
+  match_command /(.+)\s+(?:pk|awake)/, method: :pk_awake
   match_empty :help_message
 
   def last(m, mid)
@@ -64,5 +66,15 @@ class Theia::Commands::User
 
     character = Catgirls.character(user.xiv_character)
     character.embed(m)
+  end
+
+  def pk_awake(m, mid)
+    mid.strip!
+    user = Theia.from_discord_mid(mid)
+    user ||= User.where(nick: mid).first
+    return m.reply "No such user: `#{mid}`" unless user
+
+    system_id = PluralKitApi.system_id_from_discord_id(user.discord_id)
+    PluralKitApi.awake_embed(m, system_id)
   end
 end

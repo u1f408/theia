@@ -10,6 +10,7 @@ Bundler.require :default, ENV['RACK_ENV'].to_sym
 logs '=====> Loading framework'
 require './lib/theia'
 require './lib/catgirls'
+require './lib/pluralkit'
 
 logs '=====> Loading sequel'
 DB = Theia.sql
