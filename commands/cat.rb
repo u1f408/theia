@@ -4,6 +4,7 @@ class Theia::Commands::Cat
   extend Theia::Command
 
   command 'cat'
+  aliases 'floof'
   usage '`!%` - Get a random cat picture'
   handle_help
 
