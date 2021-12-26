@@ -1,0 +1,7 @@
+/.bundle
+/vendor/bundle
+
+# environment 
+.env
+.env.*
+!.env.dist
