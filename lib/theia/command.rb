@@ -20,10 +20,13 @@ module Theia
         syntax = klass&.[](:syntax)
 
         combined = [help.shift].compact
-        combined << "Usage: `#{Theia.config["prefix"]}#{cmdargs[:command]} #{syntax}`" if syntax
+        combined << "Usage: `%!#{cmdargs[:command]} #{syntax}`" if syntax
         combined = combined + ["", help] unless help.empty?
+        combined = combined.compact.flatten.map do |line|
+          line.gsub("%!", Theia.config["prefix"])
+        end
 
-        opts[:message].reply! combined.compact.join("\n")
+        opts[:message].reply! combined.join("\n")
       end
     end 
 
