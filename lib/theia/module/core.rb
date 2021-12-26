@@ -27,7 +27,7 @@ class Theia::Module::Core
     # proxy tags (assuming they don't have keepproxy on), and also allowing
     # us to reply to the proxied message with our command response.
     msg, pkdata = srcmsg, nil
-    if userds.get(:pluralkit_enabled, 1).to_i.positive?
+    if userds.get(:pluralkit_enabled?, 1).to_i.positive?
       pkdata = PluralKitAPI.message(srcmsg)
       unless pkdata.nil? || pkdata[:message].nil?
         pkmsg = @@message_cache[pkdata[:message]['id'].to_s]
