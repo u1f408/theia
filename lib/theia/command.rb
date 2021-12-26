@@ -80,7 +80,7 @@ module Theia
             "```",
             e.to_s,
             "",
-            e.backtrace,
+            e.backtrace[0..3],
             "```",
           ].flatten.join("\n")
         end
